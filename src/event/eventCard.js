@@ -16,8 +16,6 @@ class EventCard extends React.Component {
       textAlign: 'center',
       display: 'inline-block',
     }
-    console.log(this.props.name);
-    console.log(this.props.url);
 
     return(
       <Paper style={style} zDepth={3} >
