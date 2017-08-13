@@ -9,12 +9,14 @@ class Search extends React.Component{
       super(props);
       this.state = {value: ''};
 
+
       this.handleChange = this.handleChange.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleChange(event) {
       this.setState({value: event.target.value});
+      event.preventDefault();
     }
 
     handleSubmit(event) {
@@ -24,10 +26,10 @@ class Search extends React.Component{
 
     render() {
       return (
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={this.state.handleClick}>
           <label>
             Name:
-            <input type="text" value={this.state.value} onChange={this.handleChange} />
+            <input type="text" value={this.props.value} onChange={this.props.onChangeValue} />
           </label>
           <input type="submit" value="Submit" />
         </form>

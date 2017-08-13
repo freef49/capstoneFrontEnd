@@ -18,9 +18,12 @@ export class App extends React.Component {
       items: [],
       search: ''
     };
+
+
+
   }
   componentDidMount() {
-    var proxyUrl = 'https://cors-anywhere.herokuapp.com/',
+    let proxyUrl = 'https://cors-anywhere.herokuapp.com/',
     targetUrl = 'https://brizzy-music.herokuapp.com/api/events/search/?genre=Rock'
     fetch(proxyUrl + targetUrl)
     .then(result=>result.json())
@@ -29,18 +32,22 @@ export class App extends React.Component {
 
   }
 
-  componentWillUpdate(nextProps, nextState){
-  // use to perform preperation before an update occurs
+  componentDidUpdate(){
+    let proxyUrl = 'https://cors-anywhere.herokuapp.com/',
+    targetUrl = 'https://brizzy-music.herokuapp.com/api/events/search/?genre={this.state.search}';
+    fetch(proxyUrl + targetUrl)
+    .then(result=>result.json())
+    .then(items=>this.setState({items}));
   }
 
-  componentDidUpdate(){
-  // use to perform preperation before an update occurs
+  handleChange(event) {
+    this.setState({search: event.target.value});
+    console.log(event);
+    event.preventDefault();
   }
 
   render() {
     const event1 = this.state.items[0] ? this.state.items[0] : 'Loading...';
-
-
 
     return (
       <div>
@@ -74,7 +81,7 @@ export class App extends React.Component {
         {/* Search */}
         <div>
           <MuiThemeProvider>
-            <Search />
+            <Search value={this.state.value} onChangeValue={this.handleChange.bind(this)}/>
           </MuiThemeProvider>
         </div>
 
