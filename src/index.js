@@ -1,9 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import EventCard from './event/eventCard.js'
 import injectTapEventPlugin from 'react-tap-event-plugin';
+
+import EventCard from './event/eventCard.js'
 import DetailedPage from './details/detailedPage.js';
+import Search from './searchPage/search.js'
 
 // Needed for onTouchTap
 // http://stackoverflow.com/a/34015469/988941
@@ -13,7 +15,8 @@ export class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      items: []
+      items: [],
+      search: ''
     };
   }
   componentDidMount() {
@@ -21,7 +24,17 @@ export class App extends React.Component {
     targetUrl = 'https://brizzy-music.herokuapp.com/api/events/search/?genre=Rock'
     fetch(proxyUrl + targetUrl)
     .then(result=>result.json())
-    .then(items=>this.setState({items}))
+    .then(items=>this.setState({items}));
+
+
+  }
+
+  componentWillUpdate(nextProps, nextState){
+  // use to perform preperation before an update occurs
+  }
+
+  componentDidUpdate(){
+  // use to perform preperation before an update occurs
   }
 
   render() {
@@ -31,6 +44,7 @@ export class App extends React.Component {
 
     return (
       <div>
+        {/* Event card */}
         {/* <div>
           <MuiThemeProvider>
             <EventCard image={event1.image}
@@ -41,7 +55,9 @@ export class App extends React.Component {
           />
           </MuiThemeProvider>
         </div> */}
-        <div>
+
+        {/* Detailed Page */}
+        {/* <div>
           <MuiThemeProvider>
             <DetailedPage
             title={event1.name}
@@ -52,6 +68,13 @@ export class App extends React.Component {
             venue={event1.venue}
             description={event1.description}
           />
+          </MuiThemeProvider>
+        </div> */}
+
+        {/* Search */}
+        <div>
+          <MuiThemeProvider>
+            <Search />
           </MuiThemeProvider>
         </div>
 
