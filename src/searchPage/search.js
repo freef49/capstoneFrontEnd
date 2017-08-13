@@ -1,37 +1,18 @@
 import React from 'react';
 
-// Using the set state a can use the component did update()
-
-// On this call a can update a function to call the api again on component did mount ()
-
 class Search extends React.Component{
   constructor(props) {
       super(props);
       this.state = {value: ''};
-
-
-      this.handleChange = this.handleChange.bind(this);
-      this.handleSubmit = this.handleSubmit.bind(this);
-    }
-
-    handleChange(event) {
-      this.setState({value: event.target.value});
-      event.preventDefault();
-    }
-
-    handleSubmit(event) {
-      alert('A name was submitted: ' + this.state.value);
-      event.preventDefault();
     }
 
     render() {
       return (
         <form onSubmit={this.state.handleClick}>
           <label>
-            Name:
+            Genre:
             <input type="text" value={this.props.value} onChange={this.props.onChangeValue} />
           </label>
-          <input type="submit" value="Submit" />
         </form>
       );
     }

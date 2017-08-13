@@ -19,30 +19,30 @@ export class App extends React.Component {
       search: ''
     };
 
-
-
   }
   componentDidMount() {
-    let proxyUrl = 'https://cors-anywhere.herokuapp.com/',
-    targetUrl = 'https://brizzy-music.herokuapp.com/api/events/search/?genre=Rock'
-    fetch(proxyUrl + targetUrl)
-    .then(result=>result.json())
-    .then(items=>this.setState({items}));
 
 
   }
 
+
+
   componentDidUpdate(){
-    let proxyUrl = 'https://cors-anywhere.herokuapp.com/',
-    targetUrl = 'https://brizzy-music.herokuapp.com/api/events/search/?genre={this.state.search}';
+    //WARNING THIS WILL CALL OVER AND OVER AGAIN AFTER A SEARCH IS MADE.
+    //need to pull the last set state, that is what is causing the loop
+
+    let searchState = this.state.search;
+    let proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+    let targetUrl = 'https://brizzy-music.herokuapp.com/api/events/search/?genre=' + searchState;
+
     fetch(proxyUrl + targetUrl)
     .then(result=>result.json())
-    .then(items=>this.setState({items}));
+    //.then(items=>capturedJson = items)
+    .then(items=>this.setState({items}))
   }
 
   handleChange(event) {
     this.setState({search: event.target.value});
-    console.log(event);
     event.preventDefault();
   }
 
@@ -51,8 +51,15 @@ export class App extends React.Component {
 
     return (
       <div>
+        {/* Search */}
+        <div>
+          <MuiThemeProvider>
+            <Search value={this.state.value} onChangeValue={this.handleChange.bind(this)}/>
+          </MuiThemeProvider>
+        </div>
+
         {/* Event card */}
-        {/* <div>
+        <div>
           <MuiThemeProvider>
             <EventCard image={event1.image}
             date={event1.date}
@@ -61,7 +68,7 @@ export class App extends React.Component {
             link={event1.url}
           />
           </MuiThemeProvider>
-        </div> */}
+        </div>
 
         {/* Detailed Page */}
         {/* <div>
@@ -77,13 +84,6 @@ export class App extends React.Component {
           />
           </MuiThemeProvider>
         </div> */}
-
-        {/* Search */}
-        <div>
-          <MuiThemeProvider>
-            <Search value={this.state.value} onChangeValue={this.handleChange.bind(this)}/>
-          </MuiThemeProvider>
-        </div>
 
       </div>
 
